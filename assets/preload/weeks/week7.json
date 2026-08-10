@@ -1,0 +1,49 @@
+{
+	"songs": [
+		[
+			"Ugh",
+			"tankman",
+			[
+				246,
+				182,
+				4
+			]
+		],
+		[
+			"Guns",
+			"tankman",
+			[
+				246,
+				182,
+				4
+			]
+		],
+		[
+			"Stress",
+			"tankman",
+			[
+				246,
+				182,
+				4
+			]
+		]
+	],
+	"hideFreeplay": false,
+	"weekBackground": "week7bg",
+	"weekCharacters": [
+		"tankman",
+		"bf",
+		"gf"
+	],
+	"storyName": "Biker Gang",
+	"weekName": "Week 7",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "week6",
+	"startUnlocked": true,
+	"colorbackground": "BE84AA"
+}

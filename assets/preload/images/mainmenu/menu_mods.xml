@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="FNF_main_menu_assets.png">
+	<!-- Created with Adobe Animate version 23.0.0.407 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="mods basic0000" x="0" y="0" width="392" height="169"/>
+	<SubTexture name="mods basic0001" x="392" y="0" width="391" height="167" frameX="0" frameY="-2" frameWidth="392" frameHeight="169"/>
+	<SubTexture name="mods basic0002" x="0" y="169" width="391" height="168" frameX="0" frameY="-1" frameWidth="392" frameHeight="169"/>
+	<SubTexture name="mods white0000" x="391" y="169" width="321" height="137"/>
+	<SubTexture name="mods white0001" x="0" y="337" width="321" height="137"/>
+	<SubTexture name="mods white0002" x="321" y="337" width="321" height="137"/>
+</TextureAtlas>

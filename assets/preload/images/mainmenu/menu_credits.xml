@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="menu_credits.png">
+	<!-- Created with Adobe Animate version 23.0.0.407 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="credits basic0000" x="0" y="0" width="452" height="135" frameX="0" frameY="0" frameWidth="453" frameHeight="135"/>
+	<SubTexture name="credits basic0001" x="452" y="0" width="453" height="135"/>
+	<SubTexture name="credits basic0002" x="0" y="135" width="452" height="135" frameX="-1" frameY="0" frameWidth="453" frameHeight="135"/>
+	<SubTexture name="credits white0000" x="452" y="135" width="347" height="104"/>
+	<SubTexture name="credits white0001" x="0" y="270" width="347" height="104"/>
+	<SubTexture name="credits white0002" x="347" y="270" width="347" height="104"/>
+</TextureAtlas>
