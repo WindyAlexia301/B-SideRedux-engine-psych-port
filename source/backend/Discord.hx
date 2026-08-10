@@ -117,7 +117,7 @@ class DiscordClient
 		_options.details = details;
 		_options.state = state;
 		_options.largeImageKey = 'icon';
-		_options.largeImageText = "Redux Version: (INSIDER) 21H2  " + states.MainMenuState.reduxEngine;
+		_options.largeImageText = "Redux Version: 21H2(Insider)  " + states.MainMenuState.reduxEngine;
 		_options.smallImageKey = smallImageKey;
 		// Obtained times are in milliseconds so they are divided so Discord can use it
 		_options.startTimestamp = Std.int(startTimestamp / 1000);
