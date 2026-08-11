@@ -465,9 +465,20 @@ class FreeplayState extends MusicBeatState
 		for (i in 0...iconArray.length)
 		{
 			iconArray[i].alpha = 0.6;
+
+			if(iconArray[i].animation.curAnim != null)
+				iconArray[i].animation.curAnim.curFrame = 0;
 		}
 
 		iconArray[curSelected].alpha = 1;
+
+		if(iconArray[curSelected].iconNumFrames > 2 && iconArray[curSelected].animation.curAnim != null)
+		{
+			if(songs[curSelected].songCharacter == 'gf')
+				iconArray[curSelected].animation.curAnim.curFrame = 1;
+			else
+				iconArray[curSelected].animation.curAnim.curFrame = 2;
+		}
 
 		for (item in grpSongs.members)
 		{
