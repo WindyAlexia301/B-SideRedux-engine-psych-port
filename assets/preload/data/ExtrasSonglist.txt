@@ -1,0 +1,12 @@
+Bravery:evil-picoD1:0xFFFFFFFF
+Synergy:old-picoD3-uncorruption:0xFFFFFFFF
+One-Shot:pico-takeover:0xFFFFFFFF
+Extrication:pico-3:0xFFFFFFFF
+Macabre:spooky:0xFFFFFFFF
+Macabro:spooky:0xFFFFFFFF
+South-Redux:redux-spooky2:0xFFFFFFFF
+Pixel-Moribundo:redux-senpai-pixelD2:0xFFFFFFFF
+Pixel-Morido:redux-senpai-pixelD2:0xFFFFFFFF
+Thorns-Redux:redux-senpai-pixelD3:0xFFFFFFFF
+Virus:redux-senpai-pixelD2:0xFFFFFFFF
+Suo-Mod-Be-Like:pito:0xFFFFFFFF
