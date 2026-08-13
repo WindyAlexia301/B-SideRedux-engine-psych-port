@@ -45,5 +45,6 @@
 	"hideStoryMode": false,
 	"weekBefore": "week6",
 	"startUnlocked": true,
-	"colorbackground": "BE84AA"
+	"colorbackground": "BE84AA",
+	"silhouetteColor": "573866"
 }

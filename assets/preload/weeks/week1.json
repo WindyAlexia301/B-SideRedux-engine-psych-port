@@ -19,5 +19,6 @@
 
 	"hideStoryMode": false,
 	"hideFreeplay": false,
-	"colorbackground": "FFADC4"
+	"colorbackground": "FFACC5",
+	"silhouetteColor": "A6308C"
 }
