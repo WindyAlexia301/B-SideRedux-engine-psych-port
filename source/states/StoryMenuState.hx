@@ -44,6 +44,9 @@ class StoryMenuState extends MusicBeatState
 
 	var loadedWeeks:Array<WeekData> = [];
 
+	// Duracion de las transiciones (en segundos)
+	var transitionDuration:Float = 0.35;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -358,6 +361,8 @@ class StoryMenuState extends MusicBeatState
 
 	function changeWeek(change:Int = 0):Void //Funcion que se ejcuta cada ves que se cambia la week
 	{
+		var prevWeek:Int = curWeek;
+
 		curWeek += change;
 
 		if (curWeek >= loadedWeeks.length)
@@ -370,9 +375,11 @@ class StoryMenuState extends MusicBeatState
 
 		hexcolor = CoolUtil.colorFromString(leWeek.colorbackground);
 
-		FlxTween.color(bgYellow, 0.05, hexcolor, hexcolor);
-
-		//FlxTween.color(bgYellow, 0.3, hexcolor, hexcolor);
+		// Degradado real: del color actual del fondo hacia el nuevo color
+		var prevColor:FlxColor = bgYellow.color;
+		FlxTween.cancelTweensOf(bgYellow);
+		if (prevColor != hexcolor)
+			FlxTween.color(bgYellow, transitionDuration, prevColor, hexcolor, {ease: FlxEase.quadInOut});
 
 		var leName:String = leWeek.storyName;
 		txtWeekTitle.text = leName.toUpperCase();
@@ -383,6 +390,11 @@ class StoryMenuState extends MusicBeatState
 		var bullShit:Int = 0;
 
 		var unlocked:Bool = !weekIsLocked(leWeek.fileName);
+
+		// Direccion del cambio: 1 = fuiste a la derecha, -1 = fuiste a la izquierda, 0 = sin cambio (ej: al abrir el menu)
+		var direction:Int = (change > 0) ? 1 : (change < 0 ? -1 : 0);
+		var didSlide:Bool = (direction != 0 && prevWeek != curWeek);
+
 		for (item in grpWeekText.members)
 		{
 			item.ID = bullShit - curWeek;
@@ -395,14 +407,61 @@ class StoryMenuState extends MusicBeatState
 
 		bgSprite.visible = true;
 		var assetName:String = leWeek.weekBackground;
-		if(assetName == null || assetName.length < 1) {
+		if(assetName == null || assetName.length < 1)
+		{
+			FlxTween.cancelTweensOf(bgSprite);
 			bgSprite.visible = false;
-		} else {
+		}
+		else
+		{
+			// Fantasma de la silueta anterior: se queda en pantalla mientras se desliza hacia afuera,
+			// simulando que todas las siluetas estan "en cadena" y la camara avanza por ellas.
+			var bgGhost:FlxSprite = null;
+			if (didSlide && bgSprite.visible && bgSprite.graphic != null)
+			{
+				bgGhost = new FlxSprite(bgSprite.x, bgSprite.y);
+				bgGhost.loadGraphic(bgSprite.graphic);
+				bgGhost.height = bgSprite.height;
+				bgGhost.scale.copyFrom(bgSprite.scale);
+				bgGhost.updateHitbox();
+				bgGhost.alpha = bgSprite.alpha;
+				bgGhost.color = bgSprite.color;
+				bgGhost.antialiasing = bgSprite.antialiasing;
+				insert(members.indexOf(bgSprite), bgGhost);
+			}
+
+			FlxTween.cancelTweensOf(bgSprite);
+
 			bgSprite.loadGraphic(Paths.image('menubackgrounds/menu_' + assetName));
 			bgSprite.height = FlxG.height + 10;
 			bgSprite.screenCenter();
-			bgSprite.alpha = 0.3;
-			bgSprite.color = 0xFFFFFFFF;
+			bgSprite.alpha = 0.85; // el PNG ya trae su propia textura de opacidad parcial (trazo tipo lapiz), por eso no hace falta bajarlo mucho aca
+			// Prioridad 1: el color que ustedes pipetearon y pusieron a mano en el json de la semana ("silhouetteColor").
+			// Prioridad 2 (fallback, si la semana no declara ese campo): negro puro -- siempre es una silueta, nunca debe quedar en blanco por default.
+			if (leWeek.silhouetteColor != null && leWeek.silhouetteColor.length > 0)
+			{
+				bgSprite.color = CoolUtil.colorFromString(leWeek.silhouetteColor);
+			}
+			else
+			{
+				bgSprite.color = FlxColor.BLACK;
+			}
+
+			var bgTargetX:Float = bgSprite.x;
+
+			if (bgGhost != null)
+			{
+				// La silueta anterior sigue de largo, como si la camara la dejara atras
+				FlxTween.tween(bgGhost, {x: bgGhost.x - (direction * FlxG.width)}, transitionDuration, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween)
+				{
+					remove(bgGhost, true);
+					bgGhost.destroy();
+				}});
+
+				// La nueva silueta entra desde el lado del que "venimos", como la parte contigua de la cadena
+				bgSprite.x = bgTargetX + (direction * FlxG.width);
+				FlxTween.tween(bgSprite, {x: bgTargetX}, transitionDuration, {ease: FlxEase.quadInOut});
+			}
 		}
 		PlayState.storyWeek = curWeek;
 
