@@ -70,7 +70,8 @@ class TitleState extends MusicBeatState
 	var mustUpdate:Bool = false;
 
 	var titleJSON:TitleData;
-
+	
+	
 	public static var updateVersion:String = '';
 
 	override public function create():Void
@@ -204,11 +205,13 @@ class TitleState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite();
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 
-		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-		}else{
-			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		}
+	    var bg:FlxSprite = new FlxSprite();
+        bg.loadGraphic(Paths.image('titleBG'));
+        bg.antialiasing = ClientPrefs.data.antialiasing;
+        bg.setGraphicSize(FlxG.width, FlxG.height);
+        bg.updateHitbox();
+        add(bg);
+		
 
 		// bg.setGraphicSize(Std.int(bg.width * 0.6));
 		// bg.updateHitbox();
