@@ -24,6 +24,7 @@ typedef WeekFile =
 	var hideFreeplay:Bool;
 	var difficulties:String;
 	var colorbackground:String;
+	var silhouetteColor:String;
 }
 
 class WeekData {
@@ -45,6 +46,7 @@ class WeekData {
 	public var hideFreeplay:Bool;
 	public var difficulties:String;
 	public var colorbackground:String;
+	public var silhouetteColor:String;
 
 	public var fileName:String;
 
@@ -62,7 +64,8 @@ class WeekData {
 			hideStoryMode: false,
 			hideFreeplay: false,
 			difficulties: '',
-			colorbackground: ''
+			colorbackground: '',
+			silhouetteColor: ''
 		};
 		return weekFile;
 	}
