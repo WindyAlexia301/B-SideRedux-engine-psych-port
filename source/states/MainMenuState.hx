@@ -113,7 +113,7 @@ class MainMenuState extends MusicBeatState
 		// con espacio de sobra.
 		var padding:Float = 10;
 
-		var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
+		var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80 - 180;
 		var yPos:Float = offset;
 
 		for (i in 0...optionShit.length)
@@ -145,7 +145,8 @@ class MainMenuState extends MusicBeatState
 			menuItem.scrollFactor.set(0, scr);
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 
-			yPos += menuItem.height + padding;
+			var gapAdjust:Float = (optName == 'freeplay') ? -12 : 0;
+			yPos += menuItem.height + padding + gapAdjust;
 		}
 
 		FlxG.camera.follow(camFollow, null, 0);
