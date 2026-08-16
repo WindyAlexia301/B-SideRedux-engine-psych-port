@@ -20,7 +20,7 @@ class StoryMenuState extends MusicBeatState
 	private static var lastDifficultyName:String = '';
 	var curDifficulty:Int = 1;
 
-	var txtWeekTitle:FlxText;
+	var txtWeekTitle:Alphabet;
 	var bgSprite:FlxSprite;
 
 	private static var curWeek:Int = 0;
@@ -57,9 +57,12 @@ class StoryMenuState extends MusicBeatState
 		if(curWeek >= WeekData.weeksList.length) curWeek = 0;
 		persistentUpdate = persistentDraw = true;
 
-		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 90);
-		txtWeekTitle.setFormat("fnfont.ttf", 90, FlxColor.WHITE, CENTER, FlxColor.WHITE);
-		txtWeekTitle.alpha = 0.7;
+		txtWeekTitle = new Alphabet(0, 10, "", true);
+		txtWeekTitle.alpha = 1;
+		txtWeekTitle.scaleX = 1.3;
+		txtWeekTitle.scaleY = 1.3;
+		txtWeekTitle.updateHitbox();
+		freezeWeekTitleLetters();
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
 		bgYellow = new FlxSprite(0, 0).makeGraphic(FlxG.width + 350, FlxG.height + 350);
@@ -384,6 +387,7 @@ class StoryMenuState extends MusicBeatState
 		var leName:String = leWeek.storyName;
 		txtWeekTitle.text = leName.toUpperCase();
 		txtWeekTitle.screenCenter(X);
+		freezeWeekTitleLetters();
 
 		trace('Cambio de semana');
 
@@ -485,6 +489,18 @@ class StoryMenuState extends MusicBeatState
 	function weekIsLocked(name:String):Bool {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
 		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!weekCompleted.exists(leWeek.weekBefore) || !weekCompleted.get(leWeek.weekBefore)));
+	}
+
+	function freezeWeekTitleLetters():Void
+	{
+		for (letter in txtWeekTitle.letters)
+		{
+			if (letter != null)
+			{
+				letter.animation.pause();
+				letter.antialiasing = true;
+			}
+		}
 	}
 
 	function updateText()
