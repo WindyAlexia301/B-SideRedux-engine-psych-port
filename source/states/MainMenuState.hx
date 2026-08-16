@@ -32,6 +32,20 @@ class MainMenuState extends MusicBeatState
 
 	var camFollow:FlxObject;
 
+	// Escala del frame "idle" (basic) de cada opción. Los sprites vienen de Adobe
+	// Animate con proporciones inconsistentes entre sí; el único que se ve chico
+	// de verdad en su tamaño normal es donate/LINK (~111px de alto vs ~135-193px
+	// del resto). story_mode se deja tal cual, a propósito es más grande.
+	var idleScale:Map<String, Float>;
+
+	// Escala del frame "selected" (white) de cada opción. TODOS los sprites se
+	// achican al pasar a este frame en Adobe Animate (entre 58% y 81% de su
+	// tamaño idle, medido directo del atlas), así que sin compensar, cualquier
+	// opción se ve más chica justo al preseleccionarla. Estos valores están
+	// calculados para que, al seleccionar, el sprite quede ~8% MÁS grande que
+	// su propio tamaño idle (en vez de encogerse), como en engines de referencia.
+	var selectedScale:Map<String, Float>;
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -77,25 +91,61 @@ class MainMenuState extends MusicBeatState
 			scale = 6 / optionShit.length;
 		}*/
 
+		idleScale = [
+			'donate' => 1.15, // bajado de 1.4: ya se veía muy grande
+			'awards' => 0.93  // ligeramente más grande que sus vecinos, se achica un poco
+		];
+
+		selectedScale = [
+			'story_mode' => 1.43,
+			'freeplay'   => 1.62,
+			'mods'       => 1.33,
+			'awards'     => 1.73,
+			'credits'    => 1.40,
+			'donate'     => 2.00,
+			'options'    => 1.56
+		];
+
+		// Separación fija entre el borde de una opción y el borde de la siguiente.
+		// Al ya no usar un paso fijo en px (antes 140/155), esto se suma al alto
+		// REAL de cada sprite (ya escalado), así que las opciones grandes (story_mode)
+		// generan más espacio automáticamente y las chicas (donate) no quedan
+		// con espacio de sobra.
+		var padding:Float = 10;
+
+		var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
+		var yPos:Float = offset;
+
 		for (i in 0...optionShit.length)
 		{
-			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
+			var optName:String = optionShit[i];
+			var itemScale:Float = idleScale.exists(optName) ? idleScale.get(optName) : scale;
+
+			var menuItem:FlxSprite = new FlxSprite(0, yPos);
 			menuItem.antialiasing = ClientPrefs.data.antialiasing;
-			menuItem.scale.x = scale;
-			menuItem.scale.y = scale;
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
+			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optName);
+			menuItem.animation.addByPrefix('idle', optName + " basic", 24);
+			menuItem.animation.addByPrefix('selected', optName + " white", 24);
 			menuItem.animation.play('idle');
+			menuItem.scale.set(itemScale, itemScale);
+			menuItem.updateHitbox();
 			menuItem.ID = i;
 			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
-			var scr:Float = (optionShit.length - 4) * 0.135;
+			// Mecánica original de psych/FNF: las opciones tienen un scrollFactor
+			// reducido para que la lista se vea compacta y la cámara casi no se
+			// mueva (así es como se ve "normal"). Estaba calibrada asumiendo menos
+			// opciones que las 7 que tenemos acá (con mods/awards/donate sumados),
+			// así que el 0.135 se quedaba corto y no comprimía lo suficiente para
+			// que la última opción entrara en pantalla. Subí ese número a 0.19.
+			// Si agregan/quitan opciones (mods) y vuelve a pasar, este es el único
+			// valor que hay que tocar.
+			var scr:Float = (optionShit.length - 4) * 0.19;
 			if(optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
-			menuItem.updateHitbox();
+
+			yPos += menuItem.height + padding;
 		}
 
 		FlxG.camera.follow(camFollow, null, 0);
@@ -240,18 +290,27 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
+			var optName:String = optionShit[spr.ID];
+			var baseScale:Float = idleScale.exists(optName) ? idleScale.get(optName) : 1;
+
 			spr.animation.play('idle');
+			spr.scale.set(baseScale, baseScale);
 			spr.updateHitbox();
 
 			if (spr.ID == curSelected)
 			{
 				spr.animation.play('selected');
-				var add:Float = 0;
-				if(menuItems.length > 4) {
-					add = menuItems.length * 8;
-				}
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
+
+				var selScale:Float = selectedScale.exists(optName) ? selectedScale.get(optName) : baseScale;
+				spr.scale.set(selScale, selScale);
+				spr.updateHitbox();
 				spr.centerOffsets();
+
+				// Cámara centrada directo en la opción seleccionada, sin sesgo.
+				// Antes había un "add" que la subía, lo que empujaba la opción
+				// seleccionada hacia abajo en pantalla; en la última opción eso
+				// la cortaba porque no hay nada debajo para compensar.
+				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
 			}
 		});
 	}
