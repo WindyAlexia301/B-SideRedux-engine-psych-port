@@ -38,7 +38,8 @@ import cutscenes.DialogueBoxPsych;
 
 import states.StoryMenuState;
 import states.FreeplayState;
-import states.LegacyState;
+import states.FreeplayLegacy;
+import states.FreeplaySelect;
 import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
 
@@ -2370,7 +2371,7 @@ class PlayState extends MusicBeatState
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(FreeplaySelect.lastFreeplayWasLegacy ? new FreeplayLegacy() : new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('sereneLoop'));
 				changedDifficulty = false;
 			}

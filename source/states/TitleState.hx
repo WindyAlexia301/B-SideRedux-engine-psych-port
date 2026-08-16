@@ -193,11 +193,9 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
-		if (!initialized)
+		if (FlxG.sound.music == null || !FlxG.sound.music.playing)
 		{
-			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('sereneLoop'), 0);
-			}
+			FlxG.sound.playMusic(Paths.music('sereneLoop'), closedState ? 0.7 : 0);
 		}
 
 		Conductor.bpm = titleJSON.bpm;
@@ -577,7 +575,7 @@ class TitleState extends MusicBeatState
 			{
 				remove(ngSpr);
 				remove(credGroup);
-				FlxG.camera.flash(FlxColor.WHITE, 4);
+				FlxG.camera.flash(FlxColor.WHITE, 1.67);
 			}
 			skippedIntro = true;
 		}

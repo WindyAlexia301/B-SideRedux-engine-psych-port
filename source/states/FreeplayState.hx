@@ -41,6 +41,7 @@ class FreeplayState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	var bg:FlxSprite;
+	var bgFill:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
@@ -55,6 +56,8 @@ class FreeplayState extends MusicBeatState
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
+
+		FreeplaySelect.lastFreeplayWasLegacy = false;
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -87,10 +90,18 @@ class FreeplayState extends MusicBeatState
 		}
 		Mods.loadTopMod();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bgFill = new FlxSprite(0, 0).makeGraphic(FlxG.width + 200, FlxG.height + 200, FlxColor.WHITE);
+		bgFill.screenCenter();
+		add(bgFill);
+
+		bg = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 		bg.antialiasing = ClientPrefs.data.antialiasing;
-		add(bg);
+		bg.setGraphicSize(Std.int(bg.width * 1.175));
+		bg.updateHitbox();
 		bg.screenCenter();
+		bg.color = FlxColor.BLACK;
+		bg.alpha = 0.75;
+		add(bg);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -148,8 +159,8 @@ class FreeplayState extends MusicBeatState
 		add(missingText);
 
 		if(curSelected >= songs.length) curSelected = 0;
-		bg.color = songs[curSelected].color;
-		intendedColor = bg.color;
+		bgFill.color = songs[curSelected].color;
+		intendedColor = bgFill.color;
 		lerpSelected = curSelected;
 
 		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
@@ -302,7 +313,7 @@ class FreeplayState extends MusicBeatState
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new FreeplaySelect());
 		}
 
 		if(FlxG.keys.justPressed.CONTROL)
@@ -444,14 +455,14 @@ class FreeplayState extends MusicBeatState
 			curSelected = songs.length - 1;
 		if (curSelected >= songs.length)
 			curSelected = 0;
-			
+
 		var newColor:Int = songs[curSelected].color;
 		if(newColor != intendedColor) {
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
 			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+			colorTween = FlxTween.color(bgFill, 1, bgFill.color, intendedColor, {
 				onComplete: function(twn:FlxTween) {
 					colorTween = null;
 				}

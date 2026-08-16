@@ -9,6 +9,8 @@ import flixel.math.FlxPoint;
 
 import states.StoryMenuState;
 import states.FreeplayState;
+import states.FreeplayLegacy;
+import states.FreeplaySelect;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -100,7 +102,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			if (PlayState.isStoryMode)
 				MusicBeatState.switchState(new StoryMenuState());
 			else
-				MusicBeatState.switchState(new FreeplayState());
+				MusicBeatState.switchState(FreeplaySelect.lastFreeplayWasLegacy ? new FreeplayLegacy() : new FreeplayState());
 
 			FlxG.sound.playMusic(Paths.music('sereneLoop'));
 			PlayState.instance.callOnScripts('onGameOverConfirm', [false]);

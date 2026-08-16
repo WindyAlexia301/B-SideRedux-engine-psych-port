@@ -1,9 +1,6 @@
-package;
+package states;
 
-#if desktop
-import Discord.DiscordClient;
-#end
-import editors.ChartingState;
+import states.editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -18,7 +15,11 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
-import WeekData;
+import backend.WeekData;
+import backend.Song;
+import backend.Highscore;
+import objects.HealthIcon;
+import substates.ResetScoreSubState;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -38,7 +39,8 @@ class FreeplayLegacy extends MusicBeatState
 	var defaultCamZoom:Float = 1;
 
 	var bg:FlxSprite;
-	var bg2:FlxSprite;
+	var intendedColor:Int;
+	var colorTween:FlxTween;
 	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
 	var diffText:FlxText;
@@ -58,40 +60,14 @@ class FreeplayLegacy extends MusicBeatState
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
 
+		FreeplaySelect.lastFreeplayWasLegacy = true;
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Freeplay Legacy", "Remembering Old Times");
 		#end
 
-		Conductor.changeBPM(110);
-
-		/*for (i in 0...WeekData.weeksList.length) {
-			if(weekIsLocked(WeekData.weeksList[i])) continue;
-
-			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
-			var leSongs:Array<String> = [];
-			var leChars:Array<String> = [];
-
-			for (j in 0...leWeek.songs.length)
-			{
-				leSongs.push(leWeek.songs[j][0]);
-				leChars.push(leWeek.songs[j][1]);
-			}
-
-			WeekData.setDirectoryFromWeek(leWeek);
-			for (song in leWeek.songs)
-			{
-				var colors:Array<Int> = song[2];
-				if(colors == null || colors.length < 3)
-				{
-					colors = [146, 113, 253];
-				}
-				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
-			}
-		}
-		WeekData.loadTheFirstEnabledMod();*/
-
-				//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
+		Conductor.bpm = 110;
 
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('LegacySonglist'));
 		for (i in 0...initSonglist.length)
@@ -102,21 +78,10 @@ class FreeplayLegacy extends MusicBeatState
 			}
 		}
 
-		bg = new FlxSprite().loadGraphic(Paths.image('freeplayBG'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 		bg.screenCenter();
-
-		bg2 = new FlxSprite(5000, 0).loadGraphic(Paths.image('ClassicFreeplaySOUL'));
-		bg2.setGraphicSize(Std.int(bg2.width * 1));
-		bg2.updateHitbox();
-		bg2.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg2);
-
-		FlxTween.tween(bg2, {x: 0}, 1, {
-			ease: FlxEase.quadOut,
-			startDelay: 0,
-		});
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -135,7 +100,7 @@ class FreeplayLegacy extends MusicBeatState
 			}
 			songText.snapToPosition();
 
-			Paths.currentModDirectory = songs[i].folder;
+			Mods.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
 			icon.sprTracker = songText;
 
@@ -159,13 +124,15 @@ class FreeplayLegacy extends MusicBeatState
 		add(scoreText);
 
 		if(curSelected >= songs.length) curSelected = 0;
+		bg.color = songs[curSelected].color;
+		intendedColor = bg.color;
 
 		if(lastDifficultyName == '')
 		{
-			lastDifficultyName = CoolUtil.defaultDifficulty;
+			lastDifficultyName = Difficulty.getDefault();
 		}
-		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
-		
+		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
+
 		changeSelection();
 		changeDiff();
 
@@ -200,15 +167,15 @@ class FreeplayLegacy extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, FlxMath.bound(elapsed * 24, 0, 1)));
+		lerpRating = FlxMath.lerp(lerpRating, intendedRating, FlxMath.bound(elapsed * 12, 0, 1));
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 		if (Math.abs(lerpRating - intendedRating) <= 0.01)
 			lerpRating = intendedRating;
 
-		var ratingSplit:Array<String> = Std.string(Highscore.floorDecimal(lerpRating * 100, 2)).split('.');
+		var ratingSplit:Array<String> = Std.string(CoolUtil.floorDecimal(lerpRating * 100, 2)).split('.');
 		if(ratingSplit.length < 2) { //No decimals, add an empty space
 			ratingSplit.push('');
 		}
@@ -263,6 +230,9 @@ class FreeplayLegacy extends MusicBeatState
 
 		if (controls.BACK)
 		{
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new FreeplaySelect());
 		}
@@ -270,6 +240,9 @@ class FreeplayLegacy extends MusicBeatState
 		else if (accepted)
 		{
 			persistentUpdate = false;
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
 			trace(poop);
@@ -314,11 +287,11 @@ class FreeplayLegacy extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = CoolUtil.difficulties.length-1;
-		if (curDifficulty >= CoolUtil.difficulties.length)
+			curDifficulty = Difficulty.list.length - 1;
+		if (curDifficulty >= Difficulty.list.length)
 			curDifficulty = 0;
 
-		lastDifficultyName = CoolUtil.difficulties[curDifficulty];
+		lastDifficultyName = Difficulty.list[curDifficulty];
 
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
@@ -326,7 +299,7 @@ class FreeplayLegacy extends MusicBeatState
 		#end
 
 		PlayState.storyDifficulty = curDifficulty;
-		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+		diffText.text = '< ' + lastDifficultyName.toUpperCase() + ' >';
 		positionHighscore();
 	}
 
@@ -340,6 +313,19 @@ class FreeplayLegacy extends MusicBeatState
 			curSelected = songs.length - 1;
 		if (curSelected >= songs.length)
 			curSelected = 0;
+
+		var newColor:Int = songs[curSelected].color;
+		if(newColor != intendedColor) {
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
+			intendedColor = newColor;
+			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+				onComplete: function(twn:FlxTween) {
+					colorTween = null;
+				}
+			});
+		}
 
 		// selector.y = (70 * curSelected) + 30;
 
@@ -377,43 +363,21 @@ class FreeplayLegacy extends MusicBeatState
 			}
 		}
 		
-		Paths.currentModDirectory = songs[curSelected].folder;
+		Mods.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
 
-		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
-		var diffStr:String = WeekData.getCurrentWeek().difficulties;
-		if(diffStr != null) diffStr = diffStr.trim(); //Fuck you HTML5
+		Difficulty.resetList();
 
-		if(diffStr != null && diffStr.length > 0)
+		if(Difficulty.list.contains(Difficulty.getDefault()))
 		{
-			var diffs:Array<String> = diffStr.split(',');
-			var i:Int = diffs.length - 1;
-			while (i > 0)
-			{
-				if(diffs[i] != null)
-				{
-					diffs[i] = diffs[i].trim();
-					if(diffs[i].length < 1) diffs.remove(diffs[i]);
-				}
-				--i;
-			}
-
-			if(diffs.length > 0 && diffs[0].length > 0)
-			{
-				CoolUtil.difficulties = diffs;
-			}
-		}
-		
-		if(CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty))
-		{
-			curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(CoolUtil.defaultDifficulty)));
+			curDifficulty = Math.round(Math.max(0, Difficulty.list.indexOf(Difficulty.getDefault())));
 		}
 		else
 		{
 			curDifficulty = 0;
 		}
 
-		var newPos:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
+		var newPos:Int = Difficulty.list.indexOf(lastDifficultyName);
 		//trace('Pos of ' + lastDifficultyName + ' is ' + newPos);
 		if(newPos > -1)
 		{
@@ -445,7 +409,7 @@ class SongMetadati
 		this.week = week;
 		this.songCharacter = songCharacter;
 		this.color = color;
-		this.folder = Paths.currentModDirectory;
+		this.folder = Mods.currentModDirectory;
 		if(this.folder == null) this.folder = '';
 	}
 }
