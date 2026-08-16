@@ -13,6 +13,8 @@ import objects.MenuCharacter;
 import substates.GameplayChangersSubstate;
 import substates.ResetScoreSubState;
 
+import shaders.ColorSwap;
+
 class StoryMenuState extends MusicBeatState
 {
 	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
@@ -138,7 +140,20 @@ class StoryMenuState extends MusicBeatState
 		leftArrow.animation.addByPrefix('idle', "arrow left");
 		leftArrow.animation.addByPrefix('press', "arrow push left");
 		leftArrow.animation.play('idle');
+		leftArrow.updateHitbox();
 		leftArrow.screenCenter(Y);
+		leftArrow.animation.callback = function(name:String, frameNumber:Int, frameIndex:Int)
+		{
+			var extraScale:Float = (leftArrow.animation.name == 'press') ? 0.70 : 1;
+			leftArrow.scale.set(extraScale, extraScale);
+			leftArrow.centerOffsets();
+			leftArrow.centerOrigin();
+		}
+		leftArrow.centerOffsets();
+
+		var leftArrowColor:ColorSwap = new ColorSwap();
+		leftArrowColor.saturation = -1;
+		leftArrow.shader = leftArrowColor.shader;
 
 		Difficulty.resetList();
 		if(lastDifficultyName == '')
@@ -158,7 +173,20 @@ class StoryMenuState extends MusicBeatState
 		rightArrow.animation.addByPrefix('idle', 'arrow right');
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
 		rightArrow.animation.play('idle');
+		rightArrow.updateHitbox();
 		rightArrow.screenCenter(Y);
+		rightArrow.animation.callback = function(name:String, frameNumber:Int, frameIndex:Int)
+		{
+			var extraScale:Float = (rightArrow.animation.name == 'press') ? 0.70 : 1;
+			rightArrow.scale.set(extraScale, extraScale);
+			rightArrow.centerOffsets();
+			rightArrow.centerOrigin();
+		}
+		rightArrow.centerOffsets();
+
+		var rightArrowColor:ColorSwap = new ColorSwap();
+		rightArrowColor.saturation = -1;
+		rightArrow.shader = rightArrowColor.shader;
 
 		add(bgYellow);
 		add(bgSprite);
