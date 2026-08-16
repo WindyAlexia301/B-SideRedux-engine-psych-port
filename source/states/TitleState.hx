@@ -5,6 +5,7 @@ import backend.Highscore;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.effects.FlxFlicker;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
@@ -261,12 +262,12 @@ class TitleState extends MusicBeatState
 			//EDIT THIS ONE IF YOU'RE MAKING A SOURCE CODE MOD!!!!
 			//EDIT THIS ONE IF YOU'RE MAKING A SOURCE CODE MOD!!!!
 				gfDance.frames = Paths.getSparrowAtlas('titleDance');
-				gfDance.animation.addByIndices('boppy', 'boppy', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-				gfDance.animation.addByIndices('boppy', 'boppy', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+				gfDance.animation.addByPrefix('danceLeft', 'boppy', 24, false);
+				gfDance.animation.addByPrefix('danceRight', 'boppy', 24, false);
 		}
 
-		add(gfDance);
 		add(logoBl);
+		add(gfDance);
 		if(swagShader != null)
 		{
 			gfDance.shader = swagShader.shader;
