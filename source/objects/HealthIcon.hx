@@ -32,6 +32,7 @@ class HealthIcon extends FlxSprite
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
 			
+			
 			var graphic = Paths.image(name, allowGPU);
 			//Cada frame es cuadrado (mismo ancho que el alto). Se calcula cuantos frames trae la imagen
 			//en vez de asumir siempre 2: asi soportamos iconos viejos (2 frames) y nuevos (3 frames, con cara de ganando).
