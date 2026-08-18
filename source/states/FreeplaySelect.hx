@@ -16,12 +16,18 @@ class FreeplaySelect extends MusicBeatState
 	var idleScale:Array<Float> = [1, 1];
 	var selectedScale:Array<Float> = [1, 1];
 
-	var bg:FlxSprite;
+	var bgFlat:FlxSprite;
+	var bgArt:FlxSprite;
 
 	var reduxColor:FlxColor = 0xFFEAA8FF;
-	var legacyColor:FlxColor = 0xFF665AFF;
+	var reduxColorDark:FlxColor = 0xFFBB41E2;
+	var legacyColor:FlxColor = 0xFF6699FF;
+	var legacyColorDark:FlxColor = 0xFF205DD5;
+
 	var intendedColor:FlxColor;
+	var intendedColorDark:FlxColor;
 	var colorTween:FlxTween;
+	var colorTweenDark:FlxTween;
 
 	override function create()
 	{
@@ -33,12 +39,18 @@ class FreeplaySelect extends MusicBeatState
 
 		curSelected = lastFreeplayWasLegacy ? 1 : 0;
 		intendedColor = (curSelected == 1) ? legacyColor : reduxColor;
+		intendedColorDark = (curSelected == 1) ? legacyColorDark : reduxColorDark;
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		bg.color = intendedColor;
-		add(bg);
-		bg.screenCenter();
+		bgFlat = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		bgFlat.color = intendedColor;
+		add(bgFlat);
+		bgFlat.screenCenter();
+
+		bgArt = new FlxSprite().loadGraphic(Paths.image('menubackgrounds/bgArtFreeplayMode'));
+		bgArt.antialiasing = ClientPrefs.data.antialiasing;
+		bgArt.color = intendedColorDark;
+		add(bgArt);
+		bgArt.screenCenter();
 
 		for (i in 0...spriteNames.length)
 		{
@@ -127,16 +139,32 @@ class FreeplaySelect extends MusicBeatState
 		}
 
 		var newColor:FlxColor = (curSelected == 1) ? legacyColor : reduxColor;
+		var newColorDark:FlxColor = (curSelected == 1) ? legacyColorDark : reduxColorDark;
+
 		if (newColor != intendedColor)
 		{
 			if (colorTween != null)
 				colorTween.cancel();
 
 			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 0.4, bg.color, intendedColor, {
+			colorTween = FlxTween.color(bgFlat, 0.4, bgFlat.color, intendedColor, {
 				onComplete: function(twn:FlxTween)
 				{
 					colorTween = null;
+				}
+			});
+		}
+
+		if (newColorDark != intendedColorDark)
+		{
+			if (colorTweenDark != null)
+				colorTweenDark.cancel();
+
+			intendedColorDark = newColorDark;
+			colorTweenDark = FlxTween.color(bgArt, 0.4, bgArt.color, intendedColorDark, {
+				onComplete: function(twn:FlxTween)
+				{
+					colorTweenDark = null;
 				}
 			});
 		}
