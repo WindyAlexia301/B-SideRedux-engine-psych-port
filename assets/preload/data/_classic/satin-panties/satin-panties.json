@@ -1,4 +1,4 @@
-{"song":{"song":"Satin-Panties-classic","notes":[
+{"song":{"song":"Satin-Panties","notes":[
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":130,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [0.0,0,0],
 [230.76923076923077,0,0],
@@ -664,4 +664,4 @@
 [73846.15384615384,2,692]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":130,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":130,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":130,"sections":0,"needsVoices":true,"player1":"bf-car-classic","player2":"mom-car-classic","sectionLengths":[],"speed":1.8,"stage":"limo","gf":"gf-car-classic"}}
+],"bpm":130,"sections":0,"needsVoices":true,"player1":"bf-car","player2":"mom-car","sectionLengths":[],"speed":1.8}}

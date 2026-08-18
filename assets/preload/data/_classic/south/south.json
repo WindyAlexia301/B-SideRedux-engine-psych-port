@@ -1,4 +1,4 @@
-{"song":{"song":"South-classic","notes":[
+{"song":{"song":"South","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":184,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":184,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":184,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
@@ -465,4 +465,4 @@
 [83478.26086956522,0,0]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":184,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":184,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":184,"sections":0,"needsVoices":true,"player1":"bf-classic","player2":"spooky-classic","sectionLengths":[],"speed":1.7,"stage":"spooky","gf":"gf-classic"}}
+],"bpm":184,"sections":0,"needsVoices":true,"player1":"bf","player2":"spooky","sectionLengths":[],"speed":1.7}}

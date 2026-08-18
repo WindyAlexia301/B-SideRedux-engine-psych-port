@@ -1,4 +1,4 @@
-{"song":{"song":"Winter-Horrorland-classic","notes":[
+{"song":{"song":"Winter-Horrorland","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":166,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":166,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":166,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
@@ -593,4 +593,4 @@
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":166,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [124337.34939759037,1,361]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":166,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":166,"sections":0,"needsVoices":true,"player1":"bf-christmas-classic","player2":"monster-christmas-classic","sectionLengths":[],"speed":1.9,"stage":"mallEvil","gf":"gf-christmas-classic"}}
+],"bpm":166,"sections":0,"needsVoices":true,"player1":"bf-christmas","player2":"monster-christmas","sectionLengths":[],"speed":1.9}}

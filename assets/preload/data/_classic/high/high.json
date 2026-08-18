@@ -1,4 +1,4 @@
-{"song":{"song":"High-classic","notes":[
+{"song":{"song":"High","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":137,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":137,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":137,"changeBPM":true,"altAnim":false,"sectionNotes":[
@@ -859,4 +859,4 @@
 [101605.8394160584,2,876]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":137,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":137,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":137,"sections":0,"needsVoices":true,"player1":"bf-car-classic","player2":"mom-car-classic","sectionLengths":[],"speed":1.8,"stage":"limo","gf":"gf-car-classic"}}
+],"bpm":137,"sections":0,"needsVoices":true,"player1":"bf-car","player2":"mom-car","sectionLengths":[],"speed":1.8}}

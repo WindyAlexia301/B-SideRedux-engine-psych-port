@@ -1,4 +1,4 @@
-{"song":{"song":"Pico-classic","notes":[
+{"song":{"song":"Pico","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":163,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":163,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":163,"changeBPM":true,"altAnim":false,"sectionNotes":[
@@ -550,4 +550,4 @@
 [72791.41104294479,3,0],
 [72883.43558282209,2,0],
 [73251.53374233129,1,0]]}
-],"bpm":163,"sections":0,"needsVoices":true,"player1":"bf-classic","player2":"pico-classic","sectionLengths":[],"speed":1.7,"stage":"philly","gf":"gf-classic"}}
+],"bpm":163,"sections":0,"needsVoices":true,"player1":"bf","player2":"pico","sectionLengths":[],"speed":1.7}}

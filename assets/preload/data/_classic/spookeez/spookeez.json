@@ -1,4 +1,4 @@
-{"song":{"song":"Spookeez-classic","notes":[
+{"song":{"song":"Spookeez","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":168,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":168,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":168,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
@@ -581,4 +581,4 @@
 [85357.14285714286,1,0]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":168,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":168,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":168,"sections":0,"needsVoices":true,"player1":"bf-classic","player2":"spooky-classic","sectionLengths":[],"speed":1.8,"stage":"spooky","gf":"gf-classic"}}
+],"bpm":168,"sections":0,"needsVoices":true,"player1":"bf","player2":"spooky","sectionLengths":[],"speed":1.8}}

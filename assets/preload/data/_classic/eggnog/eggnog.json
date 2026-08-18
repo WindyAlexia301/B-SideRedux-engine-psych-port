@@ -1,4 +1,4 @@
-{"song":{"song":"Eggnog-classic","notes":[
+{"song":{"song":"Eggnog","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":150,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":150,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":150,"changeBPM":true,"altAnim":false,"sectionNotes":[
@@ -648,4 +648,4 @@
 [92600.0,0,0]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":150,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [92800.0,2,800]]}
-],"bpm":150,"sections":0,"needsVoices":true,"player1":"bf-christmas-classic","player2":"parents-christmas-classic","sectionLengths":[],"speed":1.9,"stage":"mall","gf":"gf-christmas-classic"}}
+],"bpm":150,"sections":0,"needsVoices":true,"player1":"bf-christmas","player2":"parents-christmas","sectionLengths":[],"speed":1.9}}

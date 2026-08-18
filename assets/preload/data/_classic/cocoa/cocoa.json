@@ -1,4 +1,4 @@
-{"song":{"song":"Cocoa-classic","notes":[
+{"song":{"song":"Cocoa","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":111,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":111,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [2162.162162162162,0,0],
@@ -593,4 +593,4 @@
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":111,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [97297.2972972973,4,0],
 [97297.2972972973,2,676]]}
-],"bpm":111,"sections":0,"needsVoices":true,"player1":"bf-christmas-classic","player2":"parents-christmas-classic","sectionLengths":[],"speed":1.9,"stage":"mall","gf":"gf-christmas-classic"}}
+],"bpm":111,"sections":0,"needsVoices":true,"player1":"bf-christmas","player2":"parents-christmas","sectionLengths":[],"speed":1.9}}

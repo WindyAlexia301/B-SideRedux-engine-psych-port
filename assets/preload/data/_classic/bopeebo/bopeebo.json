@@ -1,4 +1,4 @@
-{"song":{"song":"Bopeebo-classic","notes":[
+{"song":{"song":"Bopeebo","notes":[
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":120,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [0.0,3,0],
 [375.0,1,375],
@@ -253,4 +253,4 @@
 [63000.0,1,0],
 [63250.0,2,0],
 [63500.0,1,0]]}
-],"bpm":120,"sections":0,"needsVoices":true,"player1":"bf","player2":"dad","sectionLengths":[],"speed":1.5,"stage":"stage","gf":"gf-classic"}}
+],"bpm":120,"sections":0,"needsVoices":true,"player1":"bf","player2":"dad","sectionLengths":[],"speed":1.5}}

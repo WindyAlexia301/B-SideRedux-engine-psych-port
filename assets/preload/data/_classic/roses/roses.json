@@ -1,4 +1,4 @@
-{"song":{"song":"Roses-classic","notes":[
+{"song":{"song":"Roses","notes":[
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":127,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [472.4409448818898,2,0],
 [708.6614173228347,3,0],
@@ -660,4 +660,4 @@
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":127,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [83149.60629921261,0,0]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":127,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":127,"sections":0,"needsVoices":true,"player1":"bf-pixel-classic","player2":"senpai-angry-classic","sectionLengths":[],"speed":1.75,"stage":"school","gf":"gf-pixel-classic"}}
+],"bpm":127,"sections":0,"needsVoices":true,"player1":"bf-pixel","player2":"senpai-angry","sectionLengths":[],"speed":1.75}}

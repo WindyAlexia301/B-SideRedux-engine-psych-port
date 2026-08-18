@@ -1,4 +1,4 @@
-{"song":{"song":"Fresh-classic","notes":[
+{"song":{"song":"Fresh","notes":[
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":132,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [0.0,1,0],
 [227.27272727272728,1,0],
@@ -355,4 +355,4 @@
 [72045.45454545454,1,0],
 [72272.72727272728,2,0]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":132,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":132,"sections":0,"needsVoices":true,"player1":"bf-classic","player2":"dad-classic","sectionLengths":[],"speed":1.7,"stage":"stage","gf":"gf-classic"}}
+],"bpm":132,"sections":0,"needsVoices":true,"player1":"bf","player2":"dad","sectionLengths":[],"speed":1.7}}

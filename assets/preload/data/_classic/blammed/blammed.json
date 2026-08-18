@@ -1,4 +1,4 @@
-{"song":{"song":"Blammed-classic","notes":[
+{"song":{"song":"Blammed","notes":[
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":172,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":172,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":172,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
@@ -617,4 +617,4 @@
 [89127.9069767442,0,0]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":172,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":172,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":172,"sections":0,"needsVoices":true,"player1":"bf-classic","player2":"pico-classic","sectionLengths":[],"speed":1.9,"stage":"philly","gf":"gf-classic"}}
+],"bpm":172,"sections":0,"needsVoices":true,"player1":"bf","player2":"pico","sectionLengths":[],"speed":1.9}}

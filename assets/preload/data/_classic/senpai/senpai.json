@@ -1,4 +1,4 @@
-{"song":{"song":"Senpai-classic","notes":[
+{"song":{"song":"Senpai","notes":[
 {"mustHitSection":false,"typeOfSection":0,"lengthInSteps":16,"bpm":165,"changeBPM":true,"altAnim":false,"sectionNotes":[
 [0.0,1,0],
 [181.8181818181818,0,0],
@@ -523,4 +523,4 @@
 [81454.54545454546,3,636]]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":165,"changeBPM":true,"altAnim":false,"sectionNotes":[]},
 {"mustHitSection":true,"typeOfSection":0,"lengthInSteps":16,"bpm":165,"changeBPM":true,"altAnim":false,"sectionNotes":[]}
-],"bpm":165,"sections":0,"needsVoices":true,"player1":"bf-pixel-classic","player2":"senpai-classic","sectionLengths":[],"speed":1.9,"stage":"school","gf":"gf-pixel-classic"}}
+],"bpm":165,"sections":0,"needsVoices":true,"player1":"bf-pixel","player2":"senpai","sectionLengths":[],"speed":1.9}}
